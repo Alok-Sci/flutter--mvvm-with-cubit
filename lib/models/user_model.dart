@@ -1,8 +1,9 @@
 class User {
   String? name;
   String? email;
-  int? mobile;
+  String? mobile;
 
+  /// * User constructor
   User({
     this.name,
     this.email,

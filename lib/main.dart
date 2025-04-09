@@ -1,32 +1,32 @@
-// import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'viewmodels/comment_view_model.dart';
-// import 'models/comment.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'home.dart';
+import 'package:mvvm_with_cubit/home.dart';
+import 'package:mvvm_with_cubit/cubits/note_cubit.dart';
+import 'package:mvvm_with_cubit/cubits/user_cubit.dart';
+import 'package:mvvm_with_cubit/theme/theme_data.dart';
+import 'cubits/comment_cubit.dart';
 
-// main() {
-//   CommentViewModel comment = CommentViewModel();
-//   Object first10CommentsList = comment.loadComments();
-//   Object second10CommentsList = comment.loadComments();
-//   Object third10CommentsList = comment.loadComments();
-// }
+void main() => runApp(MyApp());
 
-void  main() =>  runApp(App());
-
-class App extends StatelessWidget {
-  const App({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CommentViewModel(),
+    /// using create inject cubits as dependency,
+    /// so that widget tree can access the single instance of corresponding cubits
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CommentCubit()),
+        BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => NoteCubit()),
+      ],
       child: MaterialApp(
-        title: 'Demo App',
+        title: 'MVVM with Cubit',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.teal,
-        ),
+
+        /// * using custom theme data
+        theme: kThemeData,
         home: Home(),
       ),
     );

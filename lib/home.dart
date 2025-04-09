@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:mvvm_with_cubit/views/comment_view.dart';
-import 'package:mvvm_with_cubit/views/note.view.dart';
-import 'package:mvvm_with_cubit/views/user.view.dart';
+import 'package:mvvm_with_cubit/views/comments_list_view.dart';
+import 'package:mvvm_with_cubit/views/notes_list_view.dart';
+import 'package:mvvm_with_cubit/views/user_view.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -10,29 +9,59 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        drawer: Drawer(
-            child: ListView(
-          children: [
-            ListTile(
-                title: Text('Notes'),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => NoteListView()));
-                }),
-            ListTile(
-                title: Text('User: Cubit Practice'),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserView()));
-                }),
-            ListTile(
-                title: Text('Comments: Infinite Scroll'),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CommentView()));
-                }),
-          ],
-        )));
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: ListView(
+        children: [
+          SizedBox(height: 20),
+
+          /// * Notes tile
+          ListTile(
+            leading: Icon(Icons.note, size: 20),
+            title: Text('Notes'),
+            subtitle: Text('Add, Update, Delete notes'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotesListView()),
+              );
+            },
+          ),
+          Divider(
+            height: 1,
+          ),
+
+          /// * User tile
+          ListTile(
+            leading: Icon(Icons.person, size: 20),
+            title: Text('User'),
+            subtitle: Text('Update profile'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserView()),
+              );
+            },
+          ),
+          Divider(
+            height: 1,
+          ),
+
+          /// * Comments tile
+          ListTile(
+            leading: Icon(Icons.comment, size: 20),
+            title: Text('Comments'),
+            subtitle: Text('Infinite Scroll, Pagination'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CommentListView()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
